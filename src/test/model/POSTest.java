@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class POStest {
+class POSTest {
     private Menu testMenu = new Menu();
     private MenuItem testMenuItem = new MenuItem("Taco",12);
     private MenuItem testMenuItem2 = new MenuItem("Magic Taco",-2);

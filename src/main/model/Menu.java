@@ -6,7 +6,7 @@ public class Menu {
     //Represents the menu of the restaurant. Holds a collection of individual MenuItem(s).
 
 
-    ArrayList<MenuItem> menuItems = new ArrayList(); // data structure to store menu items.
+    ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>(); // data structure to store menu items.
 
 
     public void addMenuItem(MenuItem menuItem) { //to add menu item to menu

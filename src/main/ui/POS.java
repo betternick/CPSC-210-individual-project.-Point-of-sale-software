@@ -61,15 +61,17 @@ public class POS {
     private void addItemToMenuUI() {
         System.out.println(" Enter Name of Item");
         String newItemName = in.nextLine();
-   //     if (newItemName.isEmpty()) {
-   //         System.out.println(" You must enter at least 1 character");
-    //        break;
-   //     }
-        System.out.println(" Enter Price of Item");
-        Double newItemPrice = in.nextDouble();
-        in.nextLine(); //junk next line character.
-        menu.addMenuItem(new MenuItem(newItemName, newItemPrice));
-        System.out.println(" Menu Item successfully added");
+        if (newItemName.isEmpty()) {
+            System.out.println(" You must enter at least 1 character");
+        } else {
+            System.out.println(" Enter Price of Item");
+            Double newItemPrice = in.nextDouble();
+            in.nextLine(); //junk next line character.
+            menu.addMenuItem(new MenuItem(newItemName, newItemPrice));
+            System.out.println(" Menu Item successfully added");
+
+        }
+
     }
 
     private void placeOrderUI() {
