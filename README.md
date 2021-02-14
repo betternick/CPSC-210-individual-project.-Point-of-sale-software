@@ -13,9 +13,9 @@ tax reporting features, access control, integration with the cloud etc.
 The software I am designing is a basic entry-level software that can accomplish the following:
 
 ## User Stories: 
-- As a user, for a customer order, I want to be able to know the cost of ordered item, enter the amount paid by
- customer and know the remaining change due to them. 
+- As a user, for a customer order, I want to be able to place an order for a menu item, enter the amount paid by
+ customer and know the change due to the customer. 
 - As a user, I want to be able to record this order.
 - As a user, I want to be able to view past orders.
 - As a user, I want to be able to view the menu.
-- As a user, I want to be able to add menu item to the menu.
+- As a user, I want to be able to add menu items to the menu.

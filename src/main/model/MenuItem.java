@@ -6,7 +6,6 @@ public class MenuItem {
     private double price;  // In Dollars
 
     /*
-     * REQUIRES: menuItem name has a non-zero length.
      * MODIFIES: this
      * EFFECTS: Name of menu item is set to name. Price of the menu item is set to price. If entered price
      * is a negative number, then price is set to 0.

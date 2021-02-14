@@ -9,7 +9,6 @@ public class Menu {
     ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>(); // data structure to store menu items.
 
     /*
-     * REQUIRES: menuItem has a non-zero length.
      * MODIFIES: this
      * EFFECTS: Adds menuItem to menu.
      */
