@@ -5,7 +5,12 @@ public class MenuItem {
     private String name;
     private double price;  // In Dollars
 
-
+    /*
+     * REQUIRES: menuItem name has a non-zero length.
+     * MODIFIES: this
+     * EFFECTS: Name of menu item is set to name. Price of the menu item is set to price. If entered price
+     * is a negative number, then price is set to 0.
+     */
     public MenuItem(String name, double price) {
         this.name = name;
         if (price < 0) {
@@ -23,6 +28,9 @@ public class MenuItem {
         return price;
     }
 
+    /*
+     * EFFECTS: Displays name and price of menu item.
+     */
     public String displayMenuItem() {
         return "Name = " + name + ", Price = $" + price;
     }

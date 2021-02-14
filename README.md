@@ -2,14 +2,6 @@
 
 ## A Point of Sale (POS) software for a restaurant.
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
-
-An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
-the bold and italic fonts correctly but they will appear correctly on GitHub.
-
 The software I am designing for my personal project is a **point-of-sale** software for a fictional restaurant named 
 *"UBC Cafe"*. Whereas in the past businesses only had the option for a simple cash register machine, these days they are using
 ever more sophisticated software that are custom-designed for their needs. The very basic functionality such software 

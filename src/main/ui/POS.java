@@ -14,6 +14,10 @@ public class POS {
     private Menu menu;
     private OrderHistory orderHistory;
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: Creates Menu. Initializes OrderHistory.
+     */
     public POS() {
         menu = new Menu();
         menu.addMenuItem(new MenuItem("Burger", 5));
@@ -23,6 +27,7 @@ public class POS {
 
 
     }
+    //EFFECTS: Runs the POS application. Processes user commands.
 
     public void startPOS() {
         while (true) {
@@ -42,6 +47,7 @@ public class POS {
             }
         }
     }
+    // EFFECTS: Displays options menu to user.
 
     private String promptAndGetUserInput() {
         System.out.println(" Press 1 to Show Menu");
@@ -51,6 +57,7 @@ public class POS {
 
         return in.nextLine(); //taken from Teller app example
     }
+    // EFFECTS: Displays menu items.
 
     private void displayMenu() {
         for (MenuItem i : menu.getMenuItems()) {
@@ -58,6 +65,9 @@ public class POS {
         }
     }
 
+    // REQUIRES: Menu item name must not be blank spaces.
+    // MODIFIES: this
+    // EFFECTS: Adds item to menu.
     private void addItemToMenuUI() {
         System.out.println(" Enter Name of Item");
         String newItemName = in.nextLine();
@@ -73,6 +83,12 @@ public class POS {
         }
 
     }
+
+
+    // MODIFIES: this
+    // EFFECTS: Places an order after Item name is provided. Checks that menu item exists. Checks that
+    // amount paid is more than price of item. Provides output of change due to customer. Adds order
+    // to OrderHistory. Provides confirmation if order is successful.
 
     private void placeOrderUI() {
         System.out.println(" Enter Name of Item");
@@ -100,7 +116,7 @@ public class POS {
         }
     }
 
-
+    // EFFECTS: Displays list of all orders placed. Indicates if no orders have been placed.
     private void viewOrderUI() {
         if (orderHistory.getOrders().isEmpty()) {
             System.out.println(" No orders have been placed.");

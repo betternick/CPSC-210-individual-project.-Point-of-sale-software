@@ -7,8 +7,12 @@ public class OrderHistory {
 
     ArrayList<Order> orderItems = new ArrayList(); // data structure to store orders.
 
-
+    /*
+     * MODIFIES: this
+     * EFFECTS: Adds an order to the list of Order history.
+     */
     public void addOrder(Order singleOrder) { //to add order to order history
+
         this.orderItems.add(singleOrder);
     }
 
