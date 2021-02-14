@@ -45,15 +45,22 @@ public class POS {
             if (usersInput.equals("4")) {
                 viewOrderUI();
             }
+            if (usersInput.equals("5")) {
+                break;
+            }
         }
+        System.out.println(" GoodBye!");
     }
+
     // EFFECTS: Displays options menu to user.
 
     private String promptAndGetUserInput() {
+        System.out.println(" "); //Just to add one line space from previous readout.
         System.out.println(" Press 1 to Show Menu");
         System.out.println(" Press 2 to Add Menu Item");
         System.out.println(" Press 3 to Order");
         System.out.println(" Press 4 to View Orders");
+        System.out.println(" Press 5 to Quit");
 
         return in.nextLine(); //taken from Teller app example
     }
