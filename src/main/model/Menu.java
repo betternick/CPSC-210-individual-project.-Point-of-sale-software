@@ -17,9 +17,6 @@ public class Menu {
         return menuItems;
     }
 
-    public void setMenuItems(ArrayList<MenuItem> menuItems) {
-        this.menuItems = menuItems;
-    }
 
 
 }

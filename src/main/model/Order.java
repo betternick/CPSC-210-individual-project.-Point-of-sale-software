@@ -13,6 +13,10 @@ public class Order {
         this.date = date;
     }
 
+    public String displayOrder() {
+        return "Name = " + menuItem.getName() + ", Price = $" + menuItem.getPrice() + ", Date: " + date;
+    }
+
     public MenuItem getMenuItem() {
         return menuItem;
     }
@@ -20,17 +24,4 @@ public class Order {
     public String getDate() {
         return date;
     }
-
-    public void setMenuItem(MenuItem menuItem) {
-        this.menuItem = menuItem;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String displayOrder() {
-        return "Name = " + menuItem.getName() + ", Price = $" + menuItem.getPrice() + ", Date: " + date;
-    }
-
 }
