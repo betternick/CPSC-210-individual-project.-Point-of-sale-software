@@ -12,6 +12,10 @@
         {
             "price": 2,
             "name": "Toast"
+        },
+        {
+            "price": 0.5,
+            "name": "Jam"
         }
     ]
 }

@@ -116,7 +116,7 @@ public class POS {
         if (newItemName.isEmpty()) {
             System.out.println(" You must enter at least 1 character");
         }
-        if (menu.contains(newItemName)) {
+        if (menu.containsMenuItem(newItemName)) {
             System.out.println(" That item already exists");
         } else {
             System.out.println(" Enter Price of Item");

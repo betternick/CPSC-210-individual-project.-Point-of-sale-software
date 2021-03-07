@@ -12,6 +12,7 @@ public class Menu implements Writable {
 
     ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>(); // data structure to store menu items.
 
+    // EFFECTS: constructs a Menu with given name
     public Menu(String name) {
         this.name = name;
 
@@ -20,8 +21,10 @@ public class Menu implements Writable {
     public Menu() {
     }
 
-
-    public boolean contains(String newItemName) {
+    /*
+     * EFFECTS: Returns true if menu already contains a menu item with newItemName.
+     */
+    public boolean containsMenuItem(String newItemName) {
         boolean found = false;
         for (MenuItem m : menuItems) {
             if (m.getName().equalsIgnoreCase(newItemName)) {
@@ -34,10 +37,10 @@ public class Menu implements Writable {
 
     /*
      * MODIFIES: this
-     * EFFECTS: Adds menuItem to menu.
+     * EFFECTS: Adds menuItem to menu. Does not allow duplicate items.
      */
     public void addMenuItem(MenuItem menuItem) {
-        if (!this.contains(menuItem.getName())) {
+        if (!this.containsMenuItem(menuItem.getName())) {
             this.menuItems.add(menuItem);
         }
     }
