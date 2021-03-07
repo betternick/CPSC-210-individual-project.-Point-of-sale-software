@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class POSTest {
     private Menu testMenu = new Menu();
+    private Menu testMenu2  = new Menu("Lunch Menu");
     private MenuItem testMenuItem = new MenuItem("Taco",12);
     private MenuItem testMenuItem2 = new MenuItem("Magic Taco",-2);
     private Order testOrder = new Order(testMenuItem, LocalDate.now().toString());
@@ -18,6 +19,7 @@ class POSTest {
     @Test
     void testConstructors() {
         assertEquals(testMenu.getMenuItems().size(), 0);
+        assertEquals("Lunch Menu",testMenu2.getName());
         assertEquals(testMenuItem.getName(), "Taco");
         assertEquals(testMenuItem.getPrice(), 12);
         assertEquals(testOrder.getMenuItem(), testMenuItem);
@@ -33,6 +35,20 @@ class POSTest {
         assertEquals(testMenuItem.getName(), "Taco");
         assertEquals(testMenuItem.getPrice(), 12);
         }
+
+    @Test
+    void testDuplicateMenuItem() {
+        assertEquals(testMenu.getMenuItems().size(), 0);
+        testMenu.addMenuItem(testMenuItem);
+        assertEquals(testMenu.getMenuItems().size(), 1);
+        assertEquals(testMenuItem.getName(), "Taco");
+        assertEquals(testMenuItem.getPrice(), 12);
+        testMenu.addMenuItem(testMenuItem);
+        assertEquals(testMenu.getMenuItems().size(), 1);
+        assertEquals(testMenuItem.getName(), "Taco");
+        assertEquals(testMenuItem.getPrice(), 12);
+
+    }
 
     @Test
     void testDisplayMenuItem() {

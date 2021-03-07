@@ -22,12 +22,13 @@ public class Menu implements Writable {
 
 
     public boolean contains(String newItemName) {
+        boolean found = false;
         for (MenuItem m : menuItems) {
-            if (m.getName().equals(newItemName)) {
-                return true;
+            if (m.getName().equalsIgnoreCase(newItemName)) {
+                found = true;
             }
         }
-        return false;
+        return found;
     }
 
 
@@ -36,7 +37,9 @@ public class Menu implements Writable {
      * EFFECTS: Adds menuItem to menu.
      */
     public void addMenuItem(MenuItem menuItem) {
-        this.menuItems.add(menuItem);
+        if (!this.contains(menuItem.getName())) {
+            this.menuItems.add(menuItem);
+        }
     }
 
     public ArrayList<MenuItem> getMenuItems() {
@@ -71,7 +74,5 @@ public class Menu implements Writable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 }
