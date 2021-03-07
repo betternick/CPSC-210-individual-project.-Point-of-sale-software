@@ -1,0 +1,13 @@
+{
+    "name": "Drinks Menu",
+    "menuItems": [
+        {
+            "price": 2,
+            "name": "Coke"
+        },
+        {
+            "price": 1,
+            "name": "Fanta"
+        }
+    ]
+}
