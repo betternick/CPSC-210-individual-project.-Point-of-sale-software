@@ -42,7 +42,7 @@ public class MenuItem implements Writable {
 
     @Override
     // EFFECTS: returns this as JSON object
-    //Code taken from JsonSerializationDemo (CPSC 210)
+    //Code for this function taken from JsonSerializationDemo (CPSC 210)
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);

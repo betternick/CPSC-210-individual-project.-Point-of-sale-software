@@ -10,7 +10,7 @@ public class Menu implements Writable {
     //Represents the menu of the restaurant. Has a name and holds a collection of individual MenuItem(s).
     private String name;
 
-    ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>(); // data structure to store menu items.
+    ArrayList<MenuItem> menuItems = new ArrayList<>(); // data structure to store menu items.
 
     // EFFECTS: constructs a Menu with given name
     public Menu(String name) {
@@ -53,7 +53,7 @@ public class Menu implements Writable {
 
     @Override
     // EFFECTS: returns this as JSON object
-    //Code taken from JsonSerializationDemo (CPSC 210)
+    //Code for this function taken from JsonSerializationDemo (CPSC 210)
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
@@ -62,7 +62,7 @@ public class Menu implements Writable {
     }
 
     // EFFECTS: returns menu items in this menu as a JSON array
-    //Code taken from JsonSerializationDemo (CPSC 210)
+    //Code for this function taken from JsonSerializationDemo (CPSC 210)
     private JSONArray menuItemsToJson() {
         JSONArray jsonArray = new JSONArray();
 
