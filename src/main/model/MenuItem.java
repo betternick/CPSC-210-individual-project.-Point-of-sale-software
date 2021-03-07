@@ -1,6 +1,9 @@
 package model;
 
-public class MenuItem {
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class MenuItem implements Writable {
     //Represents the individual menu items with a name and price in dollars.
     private String name;
     private double price;  // In Dollars
@@ -27,10 +30,23 @@ public class MenuItem {
         return price;
     }
 
+
+
     /*
      * EFFECTS: Displays name and price of menu item.
      */
     public String displayMenuItem() {
         return "Name = " + name + ", Price = $" + price;
+    }
+
+
+    @Override
+    // EFFECTS: returns this as JSON object
+    //Code taken from JsonSerializationDemo (CPSC 210)
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("price", price);
+        return json;
     }
 }

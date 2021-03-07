@@ -20,12 +20,7 @@ public class POS {
      */
     public POS() {
         menu = new Menu();
-        menu.addMenuItem(new MenuItem("Burger", 5));
-        menu.addMenuItem(new MenuItem("Fries", 2));
-        menu.addMenuItem(new MenuItem("Drink", 1.5));
         orderHistory = new OrderHistory();
-
-
     }
     //EFFECTS: Runs the POS application. Processes user commands.
 
@@ -46,6 +41,9 @@ public class POS {
                 viewOrderUI();
             }
             if (usersInput.equals("5")) {
+                loadMenu();
+            }
+            if (usersInput.equals("7")) {
                 break;
             }
         }
@@ -60,7 +58,9 @@ public class POS {
         System.out.println(" Press 2 to Add Menu Item");
         System.out.println(" Press 3 to Order");
         System.out.println(" Press 4 to View Orders");
-        System.out.println(" Press 5 to Quit");
+        System.out.println(" Press 5 to load menu");
+        System.out.println(" Press 6 to save menu");
+        System.out.println(" Press 7 to Quit");
 
         return in.nextLine(); //taken from Teller app example
     }
@@ -89,6 +89,19 @@ public class POS {
 
         }
 
+    }
+
+    public void loadMenu() {
+        System.out.println(" "); //Just to add one line space from previous readout.
+        System.out.println(" Press 1 to load Breakfast menu");
+        System.out.println(" Press 2 to load Lunch menu");
+        String usersInput = in.nextLine();
+        if (usersInput.equals("1")) {
+            menu.loadMenu("Breakfast Menu");
+        }
+        if (usersInput.equals("2")) {
+            menu.loadMenu("Lunch Menu");
+        }
     }
 
 

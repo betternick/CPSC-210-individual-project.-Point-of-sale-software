@@ -19,3 +19,7 @@ The software I am designing is a basic entry-level software that can accomplish 
 - As a user, I want to be able to view past orders.
 - As a user, I want to be able to view the menu.
 - As a user, I want to be able to add menu items to the menu.
+
+PHASE-1
+- As a user, I want to be able to save a menu.
+- As a user, I want to be able to load a menu.
