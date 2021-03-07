@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 import org.json.*;
 
-// Represents a reader that reads workroom from JSON data stored in file
+// Represents a reader that reads menu from JSON data stored in file
 //Code taken from JsonSerializationDemo (CPSC 210)
 public class JsonReader {
     private String source;
@@ -49,6 +49,7 @@ public class JsonReader {
         addMenuItems(menu, jsonObject);
         return menu;
     }
+
 
     // MODIFIES: menu
     // EFFECTS: parses menu items from JSON object and adds them to menu

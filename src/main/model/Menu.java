@@ -20,20 +20,15 @@ public class Menu implements Writable {
     public Menu() {
     }
 
-    public void loadMenu(String name) {
-        this.name = name;
-        this.menuItems.clear();
-        if (this.name.equals("Breakfast Menu")) {
-            addMenuItem(new MenuItem("Eggs", 2));
-            addMenuItem(new MenuItem("Orange Juice", 3));
-            addMenuItem(new MenuItem("Milk", 2.5));
-        } else if (this.name.equals("Lunch Menu")) {
-            addMenuItem(new MenuItem("Burger", 5));
-            addMenuItem(new MenuItem("Fries", 2));
-            addMenuItem(new MenuItem("Drink", 1.5));
-        }
-    }
 
+    public boolean contains(String newItemName) {
+        for (MenuItem m : menuItems) {
+            if (m.getName().equals(newItemName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     /*
@@ -72,6 +67,11 @@ public class Menu implements Writable {
         return jsonArray;
     }
 
+    public String getName() {
+        return name;
+    }
 
-
+    public void setName(String name) {
+        this.name = name;
+    }
 }

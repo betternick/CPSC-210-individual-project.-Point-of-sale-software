@@ -4,12 +4,20 @@ import model.Menu;
 import model.MenuItem;
 import model.Order;
 import model.OrderHistory;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class POS {
     // The POS application.
+    private static final String JSON_STORE = "./data/menu.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
     Scanner in = new Scanner(System.in); //taken from Teller app example
     private Menu menu;
     private OrderHistory orderHistory;
@@ -19,31 +27,31 @@ public class POS {
      * EFFECTS: Creates Menu. Initializes OrderHistory.
      */
     public POS() {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         menu = new Menu();
         orderHistory = new OrderHistory();
+        loadMenu();
+
     }
     //EFFECTS: Runs the POS application. Processes user commands.
 
     public void startPOS() {
         while (true) {
             String usersInput = promptAndGetUserInput();
-
             if (usersInput.equals("1")) {
                 displayMenu();
-            }
-            if (usersInput.equals("2")) {
+            } else if (usersInput.equals("2")) {
                 addItemToMenuUI();
-            }
-            if (usersInput.equals("3")) {
+            } else if (usersInput.equals("3")) {
                 placeOrderUI();
-            }
-            if (usersInput.equals("4")) {
+            } else if (usersInput.equals("4")) {
                 viewOrderUI();
-            }
-            if (usersInput.equals("5")) {
+            } else if (usersInput.equals("5")) {
                 loadMenu();
-            }
-            if (usersInput.equals("7")) {
+            } else if (usersInput.equals("6")) {
+                saveMenu();
+            } else if (usersInput.equals("7")) {
                 break;
             }
         }
@@ -64,6 +72,33 @@ public class POS {
 
         return in.nextLine(); //taken from Teller app example
     }
+
+    // MODIFIES: this
+    // EFFECTS: loads menu from file
+    //Code taken from JsonSerializationDemo (CPSC 210)
+    private void loadMenu() {
+        try {
+            menu = jsonReader.read();
+            System.out.println("Loaded " + menu.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
+
+    // EFFECTS: saves the menu to file
+    //Code taken from JsonSerializationDemo (CPSC 210)
+    private void saveMenu() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(menu);
+            jsonWriter.close();
+            System.out.println("Saved " + menu.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
     // EFFECTS: Displays menu items.
 
     private void displayMenu() {
@@ -80,29 +115,20 @@ public class POS {
         String newItemName = in.nextLine();
         if (newItemName.isEmpty()) {
             System.out.println(" You must enter at least 1 character");
+        }
+        if (menu.contains(newItemName)) {
+            System.out.println(" That item already exists");
         } else {
             System.out.println(" Enter Price of Item");
             Double newItemPrice = in.nextDouble();
             in.nextLine(); //junk next line character.
             menu.addMenuItem(new MenuItem(newItemName, newItemPrice));
             System.out.println(" Menu Item successfully added");
-
         }
 
     }
 
-    public void loadMenu() {
-        System.out.println(" "); //Just to add one line space from previous readout.
-        System.out.println(" Press 1 to load Breakfast menu");
-        System.out.println(" Press 2 to load Lunch menu");
-        String usersInput = in.nextLine();
-        if (usersInput.equals("1")) {
-            menu.loadMenu("Breakfast Menu");
-        }
-        if (usersInput.equals("2")) {
-            menu.loadMenu("Lunch Menu");
-        }
-    }
+
 
 
     // MODIFIES: this
