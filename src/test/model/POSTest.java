@@ -11,6 +11,7 @@ class POSTest {
     private Menu testMenu2  = new Menu("Lunch Menu");
     private MenuItem testMenuItem = new MenuItem("Taco",12);
     private MenuItem testMenuItem2 = new MenuItem("Magic Taco",-2);
+    private MenuItem testMenuItem3 = new MenuItem("Chicken Taco",15);
     private Order testOrder = new Order(testMenuItem, LocalDate.now().toString());
     private OrderHistory testOrderHistory = new OrderHistory();
 
@@ -41,12 +42,18 @@ class POSTest {
         assertEquals(testMenu.getMenuItems().size(), 0);
         testMenu.addMenuItem(testMenuItem);
         assertEquals(testMenu.getMenuItems().size(), 1);
-        assertEquals(testMenuItem.getName(), "Taco");
-        assertEquals(testMenuItem.getPrice(), 12);
+        assertEquals(testMenu.getMenuItems().get(0).getName(), "Taco");
+        assertEquals(testMenu.getMenuItems().get(0).getPrice(), 12);
+        testMenu.addMenuItem(testMenuItem3);
+        assertEquals(testMenu.getMenuItems().get(1).getName(), "Chicken Taco");
+        assertEquals(testMenu.getMenuItems().get(1).getPrice(), 15);
+        assertEquals(testMenu.getMenuItems().size(), 2);
         testMenu.removeMenuItem("Tacoy");
-        assertEquals(testMenu.getMenuItems().size(), 1);
+        assertEquals(testMenu.getMenuItems().size(), 2);
         testMenu.removeMenuItem("Taco");
-        assertEquals(testMenu.getMenuItems().size(), 0);
+        assertEquals(testMenu.getMenuItems().size(), 1);
+        assertEquals(testMenu.getMenuItems().get(0).getName(), "Chicken Taco");
+        assertEquals(testMenu.getMenuItems().get(0).getPrice(), 15);
     }
 
     @Test
