@@ -34,6 +34,23 @@ public class Menu implements Writable {
         return found;
     }
 
+    public boolean removeMenuItem(String menuItemName) {
+
+        MenuItem toRemove = null;
+        for (MenuItem m : menuItems) {
+            if (m.getName().equalsIgnoreCase(menuItemName)) {
+                toRemove = m;
+            }
+        }
+        if (toRemove == null) {
+            return false;
+        } else {
+            menuItems.remove(toRemove);
+            return true;
+        }
+
+
+    }
 
     /*
      * MODIFIES: this

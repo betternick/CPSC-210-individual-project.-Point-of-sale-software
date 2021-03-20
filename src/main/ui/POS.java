@@ -7,6 +7,8 @@ import model.OrderHistory;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -31,52 +33,19 @@ public class POS {
         jsonReader = new JsonReader(JSON_STORE);
         menu = new Menu();
         orderHistory = new OrderHistory();
-        loadMenu();
+
 
     }
-    //EFFECTS: Runs the POS application. Processes user commands.
 
-    public void startPOS() {
-        while (true) {
-            String usersInput = promptAndGetUserInput();
-            if (usersInput.equals("1")) {
-                displayMenu();
-            } else if (usersInput.equals("2")) {
-                addItemToMenuUI();
-            } else if (usersInput.equals("3")) {
-                placeOrderUI();
-            } else if (usersInput.equals("4")) {
-                viewOrderUI();
-            } else if (usersInput.equals("5")) {
-                loadMenu();
-            } else if (usersInput.equals("6")) {
-                saveMenu();
-            } else if (usersInput.equals("7")) {
-                break;
-            }
-        }
-        System.out.println(" GoodBye!");
-    }
 
-    // EFFECTS: Displays options menu to user.
 
-    private String promptAndGetUserInput() {
-        System.out.println(" "); //Just to add one line space from previous readout.
-        System.out.println(" Press 1 to Show Menu");
-        System.out.println(" Press 2 to Add Menu Item");
-        System.out.println(" Press 3 to Order");
-        System.out.println(" Press 4 to View Orders");
-        System.out.println(" Press 5 to load menu");
-        System.out.println(" Press 6 to save menu");
-        System.out.println(" Press 7 to Quit");
 
-        return in.nextLine(); //taken from Teller app example
-    }
+
 
     // MODIFIES: this
     // EFFECTS: loads menu from file
     //Code taken from JsonSerializationDemo (CPSC 210)
-    private void loadMenu() {
+    public void loadMenu() {
         try {
             menu = jsonReader.read();
             System.out.println("Loaded " + menu.getName() + " from " + JSON_STORE);
@@ -88,7 +57,7 @@ public class POS {
 
     // EFFECTS: saves the menu to file
     //Code taken from JsonSerializationDemo (CPSC 210)
-    private void saveMenu() {
+    public void saveMenu() {
         try {
             jsonWriter.open();
             jsonWriter.write(menu);
@@ -101,74 +70,93 @@ public class POS {
 
     // EFFECTS: Displays menu items.
 
-    private void displayMenu() {
+    public void displayMenu(JTextArea displayWindow) {
+        displayWindow.setText("");
+
         for (MenuItem i : menu.getMenuItems()) {
-            System.out.println(i.displayMenuItem());
+            displayWindow.append(i.displayMenuItem() + "\n");
         }
     }
 
     // REQUIRES: Menu item name must not be blank spaces.
     // MODIFIES: this
     // EFFECTS: Adds item to menu.
-    private void addItemToMenuUI() {
-        System.out.println(" Enter Name of Item");
-        String newItemName = in.nextLine();
-        if (newItemName.isEmpty()) {
-            System.out.println(" You must enter at least 1 character");
+    // https://www.javatpoint.com/java-joptionpane
+    // https://stackoverflow.com/questions/39758916/how-do-i-use-a-double-value-with-joptionpane-showinputdialog
+    // Add Sound. URL: https://stackoverflow.com/questions/3780406/how-to-play-a-sound-alert-in-a-java-application
+    public void addItemToMenuUI(JFrame f) {
+        String newItemName = JOptionPane.showInputDialog(f,"Enter Name of Item");
+        if (newItemName == null || newItemName.isEmpty()) {
+            JOptionPane.showMessageDialog(f,"You must enter at least 1 character");
+            return;
         }
         if (menu.containsMenuItem(newItemName)) {
-            System.out.println(" That item already exists");
+            JOptionPane.showMessageDialog(f," That item already exists");
         } else {
-            System.out.println(" Enter Price of Item");
-            Double newItemPrice = in.nextDouble();
-            in.nextLine(); //junk next line character.
-            menu.addMenuItem(new MenuItem(newItemName, newItemPrice));
-            System.out.println(" Menu Item successfully added");
+            try {
+                String priceInput = JOptionPane.showInputDialog(f,"Enter Price of Item");
+                if (priceInput != null && !priceInput.isEmpty()) {
+                    Double newItemPrice = Double.parseDouble(priceInput);
+                    menu.addMenuItem(new MenuItem(newItemName, newItemPrice));
+                    Toolkit.getDefaultToolkit().beep();
+                    JOptionPane.showMessageDialog(f, " Menu Item successfully added");
+                }
+            } catch (NumberFormatException n) {
+                JOptionPane.showMessageDialog(f," Invalid number");
+            }
         }
-
     }
-
-
-
 
     // MODIFIES: this
     // EFFECTS: Places an order after Item name is provided. Checks that menu item exists. Checks that
     // amount paid is more than price of item. Provides output of change due to customer. Adds order
     // to OrderHistory. Provides confirmation if order is successful.
 
-    private void placeOrderUI() {
-        System.out.println(" Enter Name of Item");
-        String orderItemName = in.nextLine();
+    public void placeOrderUI(JFrame f) {
+        String orderItemName = JOptionPane.showInputDialog(f,"Enter Name of Item");
         Boolean foundItem = false;
         for (MenuItem i : menu.getMenuItems()) {
             if (i.getName().equalsIgnoreCase(orderItemName)) {
                 foundItem = true;
-                System.out.println(" Enter Amount Paid By Customer");
-                Double amountPaid = in.nextDouble();
-                in.nextLine(); //junk next line character.
+                Double amountPaid = Double.parseDouble(JOptionPane.showInputDialog(f,"Enter Amount Paid By Customer"));
                 if (amountPaid < i.getPrice()) {
-                    System.out.println(" Amount insufficient. Item price is $ " + i.getPrice());
+                    JOptionPane.showMessageDialog(f,"Amount insufficient. Item price is $ " + i.getPrice());
                     break;
                 }
                 Double changeDue = amountPaid - i.getPrice();
-                System.out.println(" Change Due $" + changeDue);
+                JOptionPane.showMessageDialog(f,"Change Due $" + changeDue);
                 Order newOrder = new Order(i, LocalDate.now().toString());
                 orderHistory.addOrder(newOrder);
-                System.out.println(" Order placed successfully");
+                JOptionPane.showMessageDialog(f,"Order placed successfully");
             }
         }
         if (foundItem == false) {
-            System.out.println(" No such menu item exists.");
+            JOptionPane.showMessageDialog(f,"No such menu item exists.");
         }
     }
 
+    public void removeMenuItem(JFrame f) {
+        String itemToRemove = JOptionPane.showInputDialog(f,"Enter Name of Item To Remove");
+        if (menu.removeMenuItem(itemToRemove)) {
+            JOptionPane.showMessageDialog(f," Item Removed.");
+        } else {
+            JOptionPane.showMessageDialog(f," Item does not exist.");
+        }
+    }
+
+
+
+
+
+
     // EFFECTS: Displays list of all orders placed. Indicates if no orders have been placed.
-    private void viewOrderUI() {
+    public void viewOrderUI(JTextArea displayWindow) {
+        displayWindow.setText("");
         if (orderHistory.getOrders().isEmpty()) {
-            System.out.println(" No orders have been placed.");
+            displayWindow.append("No orders have been placed. \n");
         } else {
             for (Order i : orderHistory.getOrders()) {
-                System.out.println(i.displayOrder());
+                displayWindow.append(i.displayOrder() + "\n");
             }
         }
     }
