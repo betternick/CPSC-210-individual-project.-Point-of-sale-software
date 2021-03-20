@@ -5,21 +5,31 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//The Graphical User Interface for the POS
 public class GUI extends JFrame implements ActionListener {
     POS pos = new POS();
     JTextArea displayWindow = new JTextArea();
 
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: Creates the GUI. Creates display window and buttons.
+     */
     public GUI() {
-        super("UBC Cafe POS");
-        // Code for Grid Layout taken from
+        super("UBC Cafe - Point Of Sale System");
+        // Code for Grid Layout as explained in
         // https://docs.oracle.com/javase/tutorial/uiswing/layout/grid.html
-        GridLayout myFramesLayout = new GridLayout(2,1);
+        // Setting an icon as explained in
+        // https://stackoverflow.com/questions/1614772/how-to-change-jframe-icon
+        GridLayout myFramesLayout = new GridLayout(2, 1);
         setLayout(myFramesLayout);
+
+        ImageIcon img = new ImageIcon("./data/ubcIcon.png");
 
         displayWindow.setFont(new Font("Arial", Font.PLAIN, 40));
         add(displayWindow);
 
-        GridLayout buttonsLayout = new GridLayout(2,4);
+        GridLayout buttonsLayout = new GridLayout(2, 4);
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(buttonsLayout);
 
@@ -28,12 +38,17 @@ public class GUI extends JFrame implements ActionListener {
 
         add(buttonsPanel);
 
-        setSize(1200,1200);
+        setSize(1200, 1200);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        setIconImage(img.getImage());
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: Creates the buttons 1, 2, 3 and 4 and sets what action they do.
+     */
     public void createButtons1to4(JPanel buttonsPanel) {
         JButton showMenuButton = new JButton("Show Menu");
         showMenuButton.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -60,6 +75,10 @@ public class GUI extends JFrame implements ActionListener {
 
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: Creates the buttons 5, 6 and 7 and sets what action they do.
+     */
     public void createButtons5to8(JPanel buttonsPanel) {
         JButton saveMenuButton = new JButton("Save Menu");
         saveMenuButton.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -78,7 +97,9 @@ public class GUI extends JFrame implements ActionListener {
         buttonsPanel.add(viewOrdersButton);
     }
 
-
+    /*
+     * EFFECTS: Takes button input and runs method prescribed by it.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         // Code taken from LabelChanger from CPSC 210 Phase 3 instructions.
@@ -87,7 +108,7 @@ public class GUI extends JFrame implements ActionListener {
         if (buttonInput.equals("Add Menu Item")) {
             pos.addItemToMenuUI(this);
         } else if (buttonInput.equals("Remove Menu Item")) {
-            pos.removeMenuItem(this);
+            pos.removeMenuItemUI(this);
         }
         if (buttonInput.equals("Show Menu")) {
             pos.displayMenu(displayWindow);

@@ -1,9 +1,8 @@
 package ui;
 
+import model.*;
 import model.Menu;
 import model.MenuItem;
-import model.Order;
-import model.OrderHistory;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -38,10 +37,6 @@ public class POS {
     }
 
 
-
-
-
-
     // MODIFIES: this
     // EFFECTS: loads menu from file
     //Code taken from JsonSerializationDemo (CPSC 210)
@@ -69,7 +64,6 @@ public class POS {
     }
 
     // EFFECTS: Displays menu items.
-
     public void displayMenu(JTextArea displayWindow) {
         displayWindow.setText("");
 
@@ -78,75 +72,74 @@ public class POS {
         }
     }
 
-    // REQUIRES: Menu item name must not be blank spaces.
+
     // MODIFIES: this
     // EFFECTS: Adds item to menu.
     // https://www.javatpoint.com/java-joptionpane
     // https://stackoverflow.com/questions/39758916/how-do-i-use-a-double-value-with-joptionpane-showinputdialog
     // Add Sound. URL: https://stackoverflow.com/questions/3780406/how-to-play-a-sound-alert-in-a-java-application
     public void addItemToMenuUI(JFrame f) {
-        String newItemName = JOptionPane.showInputDialog(f,"Enter Name of Item");
+        String newItemName = JOptionPane.showInputDialog(f, "Enter Name of Item");
         if (newItemName == null || newItemName.isEmpty()) {
-            JOptionPane.showMessageDialog(f,"You must enter at least 1 character");
+            JOptionPane.showMessageDialog(f, "You must enter at least 1 character");
             return;
         }
         if (menu.containsMenuItem(newItemName)) {
-            JOptionPane.showMessageDialog(f," That item already exists");
+            JOptionPane.showMessageDialog(f, " That item already exists");
         } else {
             try {
-                String priceInput = JOptionPane.showInputDialog(f,"Enter Price of Item");
+                String priceInput = JOptionPane.showInputDialog(f, "Enter Price of Item");
                 if (priceInput != null && !priceInput.isEmpty()) {
                     Double newItemPrice = Double.parseDouble(priceInput);
                     menu.addMenuItem(new MenuItem(newItemName, newItemPrice));
                     Toolkit.getDefaultToolkit().beep();
-                    JOptionPane.showMessageDialog(f, " Menu Item successfully added");
+                    JOptionPane.showMessageDialog(f, "Menu Item successfully added");
                 }
             } catch (NumberFormatException n) {
-                JOptionPane.showMessageDialog(f," Invalid number");
+                JOptionPane.showMessageDialog(f, "Invalid number");
             }
         }
     }
+
 
     // MODIFIES: this
     // EFFECTS: Places an order after Item name is provided. Checks that menu item exists. Checks that
     // amount paid is more than price of item. Provides output of change due to customer. Adds order
     // to OrderHistory. Provides confirmation if order is successful.
-
     public void placeOrderUI(JFrame f) {
-        String orderItemName = JOptionPane.showInputDialog(f,"Enter Name of Item");
+        String orderItemName = JOptionPane.showInputDialog(f, "Enter Name of Item");
         Boolean foundItem = false;
         for (MenuItem i : menu.getMenuItems()) {
             if (i.getName().equalsIgnoreCase(orderItemName)) {
                 foundItem = true;
-                Double amountPaid = Double.parseDouble(JOptionPane.showInputDialog(f,"Enter Amount Paid By Customer"));
+                Double amountPaid = Double.parseDouble(JOptionPane.showInputDialog(f, "Enter Amount Paid By Customer"));
                 if (amountPaid < i.getPrice()) {
-                    JOptionPane.showMessageDialog(f,"Amount insufficient. Item price is $ " + i.getPrice());
+                    JOptionPane.showMessageDialog(f, "Amount insufficient. Item price is $ " + i.getPrice());
                     break;
                 }
                 Double changeDue = amountPaid - i.getPrice();
-                JOptionPane.showMessageDialog(f,"Change Due $" + changeDue);
+                JOptionPane.showMessageDialog(f, "Change Due $" + changeDue);
                 Order newOrder = new Order(i, LocalDate.now().toString());
                 orderHistory.addOrder(newOrder);
-                JOptionPane.showMessageDialog(f,"Order placed successfully");
+                JOptionPane.showMessageDialog(f, "Order placed successfully");
             }
         }
-        if (foundItem == false) {
-            JOptionPane.showMessageDialog(f,"No such menu item exists.");
+        if (!foundItem) {
+            JOptionPane.showMessageDialog(f, "No such menu item exists.");
         }
     }
 
-    public void removeMenuItem(JFrame f) {
-        String itemToRemove = JOptionPane.showInputDialog(f,"Enter Name of Item To Remove");
+
+    // MODIFIES: this
+    // EFFECTS: Removes given Menu Item from the menu. Provides confirmation if successful.
+    public void removeMenuItemUI(JFrame f) {
+        String itemToRemove = JOptionPane.showInputDialog(f, "Enter Name of Item To Remove");
         if (menu.removeMenuItem(itemToRemove)) {
-            JOptionPane.showMessageDialog(f," Item Removed.");
+            JOptionPane.showMessageDialog(f, "Item Removed.");
         } else {
-            JOptionPane.showMessageDialog(f," Item does not exist.");
+            JOptionPane.showMessageDialog(f, "Item does not exist.");
         }
     }
-
-
-
-
 
 
     // EFFECTS: Displays list of all orders placed. Indicates if no orders have been placed.

@@ -37,6 +37,19 @@ class POSTest {
         }
 
     @Test
+    void testRemoveMenuItem() {
+        assertEquals(testMenu.getMenuItems().size(), 0);
+        testMenu.addMenuItem(testMenuItem);
+        assertEquals(testMenu.getMenuItems().size(), 1);
+        assertEquals(testMenuItem.getName(), "Taco");
+        assertEquals(testMenuItem.getPrice(), 12);
+        testMenu.removeMenuItem("Tacoy");
+        assertEquals(testMenu.getMenuItems().size(), 1);
+        testMenu.removeMenuItem("Taco");
+        assertEquals(testMenu.getMenuItems().size(), 0);
+    }
+
+    @Test
     void testDuplicateMenuItem() {
         assertEquals(testMenu.getMenuItems().size(), 0);
         testMenu.addMenuItem(testMenuItem);

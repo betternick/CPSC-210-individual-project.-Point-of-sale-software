@@ -29,17 +29,22 @@ public class Menu implements Writable {
         for (MenuItem m : menuItems) {
             if (m.getName().equalsIgnoreCase(newItemName)) {
                 found = true;
+                break;
             }
         }
         return found;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: Removes given Menu Item from menu.
+     */
     public boolean removeMenuItem(String menuItemName) {
-
         MenuItem toRemove = null;
         for (MenuItem m : menuItems) {
             if (m.getName().equalsIgnoreCase(menuItemName)) {
                 toRemove = m;
+                break;
             }
         }
         if (toRemove == null) {
@@ -65,7 +70,6 @@ public class Menu implements Writable {
     public ArrayList<MenuItem> getMenuItems() {
         return menuItems;
     }
-
 
 
     @Override
