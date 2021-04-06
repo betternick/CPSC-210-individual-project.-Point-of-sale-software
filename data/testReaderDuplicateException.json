@@ -1,0 +1,17 @@
+{
+  "name": "Breakfast Menu",
+  "menuItems": [
+    {
+      "price": 2,
+      "name": "Eggs"
+    },
+    {
+      "price": 1,
+      "name": "Eggs"
+    },
+    {
+      "price": 2,
+      "name": "Toast"
+    }
+  ]
+}

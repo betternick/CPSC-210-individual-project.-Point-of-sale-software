@@ -3,6 +3,7 @@ package ui;
 import model.*;
 import model.Menu;
 import model.MenuItem;
+import model.exceptions.DuplicateMenuItemException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -85,9 +86,6 @@ public class POS {
         if (newItemName == null || newItemName.isEmpty()) {
             JOptionPane.showMessageDialog(f, "You must enter at least 1 character");
             return;
-        }
-        if (menu.containsMenuItem(newItemName)) {
-            JOptionPane.showMessageDialog(f, " That item already exists");
         } else {
             try {
                 String priceInput = JOptionPane.showInputDialog(f, "Enter Price of Item");
@@ -99,6 +97,8 @@ public class POS {
                 }
             } catch (NumberFormatException n) {
                 JOptionPane.showMessageDialog(f, "Invalid number");
+            } catch (DuplicateMenuItemException d) {
+                JOptionPane.showMessageDialog(f, d.getMessage());
             }
         }
     }

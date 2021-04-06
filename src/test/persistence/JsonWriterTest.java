@@ -3,6 +3,7 @@ package persistence;
 
 import model.MenuItem;
 import model.Menu;
+import model.exceptions.DuplicateMenuItemException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -69,6 +70,36 @@ class JsonWriterTest extends JsonTest {
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");
+        } catch (DuplicateMenuItemException d) {
+            fail("DuplicateMenuItemException should not have been thrown");
         }
     }
+
+    @Test
+    void testWriterGeneralDuplicateException() {
+        try {
+            Menu menu = new Menu("Drinks Menu");
+            menu.addMenuItem(new MenuItem("Coke", 2));
+            menu.addMenuItem(new MenuItem("Coke", 1));
+            JsonWriter writer = new JsonWriter("./data/testWriterDuplicateException.json");
+            writer.open();
+            writer.write(menu);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterDuplicateException.json");
+            menu = reader.read();
+            assertEquals("Drinks Menu", menu.getName());
+            List<MenuItem> menuItems = menu.getMenuItems();
+            assertEquals(1, menuItems.size());
+            checkMenuItem("Coke", 2.0, menuItems.get(0));
+            checkMenuItem("Coke", 1.0, menuItems.get(1));
+            fail("DuplicateMenuItemException should have been thrown");
+
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        } catch (DuplicateMenuItemException d) {
+            // exception was correctly thrown;
+        }
+    }
+
 }

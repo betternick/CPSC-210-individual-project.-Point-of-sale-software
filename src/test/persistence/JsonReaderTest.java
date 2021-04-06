@@ -52,4 +52,20 @@ class JsonReaderTest extends JsonTest {
             fail("Couldn't read from file");
         }
     }
+
+    @Test
+    void testReaderSampleMenuDuplicateMenuItems() {
+        JsonReader reader = new JsonReader("./data/testReaderDuplicateException.json");
+        try {
+            Menu menu = reader.read();
+            assertEquals("Breakfast Menu", menu.getName());
+            List<MenuItem> menuItems = menu.getMenuItems();
+            assertEquals(2, menuItems.size());
+            checkMenuItem ("Eggs", 2.0, menuItems.get(0));
+//          checkMenuItem ("Orange Juice", 3.0, menuItems.get(1));
+            checkMenuItem ("Toast", 2.0, menuItems.get(1));
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+    }
 }

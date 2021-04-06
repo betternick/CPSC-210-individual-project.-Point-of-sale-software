@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import model.exceptions.DuplicateMenuItemException;
 import org.json.*;
 
 // Represents a reader that reads menu from JSON data stored in file
@@ -67,6 +68,11 @@ public class JsonReader {
         String name = jsonObject.getString("name");
         Double price = jsonObject.getDouble("price");
         MenuItem menuItem = new MenuItem(name, price);
-        menu.addMenuItem(menuItem);
+        try {
+            menu.addMenuItem(menuItem);
+        } catch (DuplicateMenuItemException d) {
+            // duplicate item will not be added
+        }
+
     }
 }

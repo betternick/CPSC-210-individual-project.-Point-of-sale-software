@@ -23,3 +23,9 @@ The software I am designing is a basic entry-level software that can accomplish 
 PHASE-1
 - As a user, I want to be able to save a menu.
 - As a user, I want to be able to load a saved menu.
+
+
+Phase-4
+ - Task 2: I implemented Option 1. I did this by making the Menu class robust 
+by having the "addMenuItem" method throw the DuplicateMenuItemException exception 
+if a duplicate menu item is created.

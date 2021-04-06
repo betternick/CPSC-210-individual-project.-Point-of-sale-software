@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.DuplicateMenuItemException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -59,12 +60,14 @@ public class Menu implements Writable {
 
     /*
      * MODIFIES: this
-     * EFFECTS: Adds menuItem to menu. Does not allow duplicate items.
+     * EFFECTS: Adds menuItem to menu. Throws DuplicateMenuItemException if Menu Item
+     * already exists.
      */
-    public void addMenuItem(MenuItem menuItem) {
-        if (!this.containsMenuItem(menuItem.getName())) {
-            this.menuItems.add(menuItem);
+    public void addMenuItem(MenuItem menuItem) throws DuplicateMenuItemException {
+        if (this.containsMenuItem(menuItem.getName())) {
+            throw new DuplicateMenuItemException(menuItem);
         }
+        this.menuItems.add(menuItem);
     }
 
     public ArrayList<MenuItem> getMenuItems() {
