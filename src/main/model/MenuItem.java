@@ -5,8 +5,8 @@ import persistence.Writable;
 
 public class MenuItem implements Writable {
     //Represents the individual menu items with a name and price in dollars.
-    private String name;
-    private double price;  // In Dollars
+    private final String name;
+    private final double price;  // In Dollars
 
     /*
      * MODIFIES: this
@@ -29,7 +29,6 @@ public class MenuItem implements Writable {
     public double getPrice() {
         return price;
     }
-
 
 
     /*

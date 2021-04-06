@@ -20,7 +20,8 @@ public class POS {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-    Scanner in = new Scanner(System.in); //taken from Teller app example
+
+//  Scanner in = new Scanner(System.in); //taken from Teller app example
     private Menu menu;
     private OrderHistory orderHistory;
 
@@ -85,7 +86,7 @@ public class POS {
         String newItemName = JOptionPane.showInputDialog(f, "Enter Name of Item");
         if (newItemName == null || newItemName.isEmpty()) {
             JOptionPane.showMessageDialog(f, "You must enter at least 1 character");
-            return;
+//          return;
         } else {
             try {
                 String priceInput = JOptionPane.showInputDialog(f, "Enter Price of Item");

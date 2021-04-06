@@ -25,7 +25,11 @@ PHASE-1
 - As a user, I want to be able to load a saved menu.
 
 
-Phase-4
+Phase-4:
+
  - Task 2: I implemented Option 1. I did this by making the Menu class robust 
 by having the "addMenuItem" method throw the DuplicateMenuItemException exception 
 if a duplicate menu item is created.
+
+ - Task 3: The UML Design Diagram has been added to the root. The design of my 
+ program is already very simple and I don't see the need to refactor it.
