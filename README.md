@@ -1,6 +1,6 @@
 # My Personal Project
 
-## A Point of Sale (POS) software for a restaurant.
+## A Point of Sale (POS) software for a Cafe.
 
 The software I am designing for my personal project is a **point-of-sale** software for a fictional restaurant named 
 *"UBC Cafe"*. Whereas in the past businesses only had the option for a simple cash register machine, these days they are using
@@ -25,17 +25,20 @@ PHASE-1
 - As a user, I want to be able to load a saved menu.
 
 
-Phase-4:
+PHASE-4:
 
  - Task 2: I implemented Option 1. I did this by making the Menu class robust 
 by having the "addMenuItem" method throw the DuplicateMenuItemException exception 
 if a duplicate menu item is created.
 
  - Task 3: The UML Design Diagram has been added to the root. As you can see, the design 
- of my program is already very simple with high cohesion and low coupling. However,
- if I had multiple menus, for example, a different menu for each day of the week and 
+ of my program is already very simple with high cohesion (class methods focus on a narrowly defined
+ task) and low coupling (dependency cycles do not exist except for one necessary one). 
+ 
+ Looking at my UML diagram, one design pattern that I would incorporate is to use the 
+ Singleton design pattern  to ensure that GUI and POS are only instantiated once. 
+ 
+ If I had multiple menus, for example, a different menu for each day of the week and 
  within each day's menu I had multiple menus for Breakfast, Lunch, Dinner, Drinks, Dessert etc
  then I would have liked to implement the composite method with Menu as the composite
- class and MenuItem as the leaf. This would give me greater abstraction to perform 
- operations on my menus like increasing the prices of all Menu Items in all menus 
- by calling a single method that operates on the parent Menu.
+ class and MenuItem as the leaf.
