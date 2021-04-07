@@ -39,6 +39,8 @@ if a duplicate menu item is created.
  Singleton design pattern  to ensure that GUI and POS are only instantiated once. 
  
  If I had multiple menus, for example, a different menu for each day of the week and 
- within each day's menu I had multiple menus for Breakfast, Lunch, Dinner, Drinks, Dessert etc
- then I would have liked to implement the composite method with Menu as the composite
- class and MenuItem as the leaf.
+ within each day's menu I had multiple menus for Breakfast, Lunch, Dinner, Drinks, Dessert 
+ etc then I would have liked to implement the composite method with Menu as the composite
+ class and MenuItem as the leaf. This would give me greater power to perform 
+ operations on my menus like increasing the prices of all Menu Items in all menus 
+ by calling a single method that operates on the parent Menu.
